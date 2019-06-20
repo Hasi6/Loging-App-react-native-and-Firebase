@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'social-media';
+  storedPosts = [];
+
+  onPostAdded(post){
+    this.storedPosts.unshift(post);
+  }
 }

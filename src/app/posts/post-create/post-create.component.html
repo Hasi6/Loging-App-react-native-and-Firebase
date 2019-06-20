@@ -1,0 +1,8 @@
+<h3 class="text-center">Simple Angular App</h3>
+<mat-card>
+    <mat-form-field>
+        <textarea matInput rows="6" [(ngModel)]="text"></textarea>
+    </mat-form-field>
+    <button mat-raised-button class="btn btn-info" (click)="onAddPost()">Save Post</button>
+</mat-card>
+<p>{{newPost}}</p>

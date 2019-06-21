@@ -1,3 +1,4 @@
+import { Post } from './../post';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -11,5 +12,5 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
 
   }
-  @Input() posts = [];
+  @Input() posts:Post[] = [];
 }

@@ -1,0 +1,60 @@
+<button class="btn btn-dark mb-3" (click)="showUserForm = !showUserForm">Add User</button>
+<div *ngIf="showUserForm" class="card card-body mb-3">
+    <h2>Add User</h2>
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <div class="form-group">
+            <label>FirstName</label>
+            <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstname" #userFirstName="ngModel" required minlength="3" [ngClass]="{'is-invalid':userFirstName.errors && userFirstName.touched}">
+            <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">
+                <p>FirstName required</p>
+            </div>
+            <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">
+                <p>First name must have at least 3 charecters</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>LastName</label>
+            <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastname" #userLastName="ngModel" required minlength="3" [ngClass]="{'is-invalid':userLastName.errors && userLastName.touched}">
+            <div [hidden]="!userLastName.errors?.required" class="invalid-feedback">
+                <p>LastName required</p>
+            </div>
+            <div [hidden]="!userLastName.errors?.minlength" class="invalid-feedback">
+                <p>Last name must have at least 3 charecters</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #userEmail="ngModel" required pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}">
+            <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">
+                <p>Email required</p>
+            </div>
+            <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">
+                <p>Email is not valid</p>
+            </div>
+        </div>
+
+
+        <button [disabled]="!userForm.form.valid" class="btn btn-light btn-block mb-3">Add new User</button>
+    </form>
+</div>
+<!-- <button onclick=showAndHide()>Show Details</button> -->
+<ul class="list-unstyled" *ngIf="users.length > 0;else noUsers">
+    <ol class="card card-body mb-4" *ngFor="let user of users" [class.bg-light]="user.isActive" [style.border-color]="user.isActive?'green' : ''">
+        <div>
+            <div>
+                <h3>FullName: {{user.firstName}} {{user.lastName}} <small *ngIf="user.email"><button class="btn btn-dark btn-sm" (click)="toggleHide(user)" ><i [ngClass]="user.hide ? 'fa fa-arrow-down' : 'fa fa-arrow-up'" ></i></button></small></h3>
+                <ul class="list-group" *ngIf="!user.hide && user.email">
+                    <li class="list-group-item">Email: {{user.email}}</li>
+                    <li class=list-group-item>Registered Date: {{user.registerd | date:"shortTime"}}</li>
+                </ul>
+            </div>
+        </div>
+
+    </ol>
+</ul>
+
+<ng-template #noUsers>
+    <h4>No Users Found</h4>
+</ng-template>
